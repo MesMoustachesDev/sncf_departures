@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 # sncf_departures
 App to learn how to develop with flutter
 =======
-=======
->>>>>>> 2df7464... initial commit
 # sncf_schedules
 
 A new Flutter application.
@@ -21,7 +17,4 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our 
 [online documentation](https://flutter.io/docs), which offers tutorials, 
 samples, guidance on mobile development, and a full API reference.
-<<<<<<< HEAD
->>>>>>> 2df7464... initial commit
-=======
->>>>>>> 2df7464... initial commit
+

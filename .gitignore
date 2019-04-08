@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 # Built application files
 *.apk
 *.ap_
@@ -65,9 +63,7 @@ fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
 fastlane/readme.md
-=======
-=======
->>>>>>> 2df7464... initial commit
+
 # Miscellaneous
 *.class
 *.lock
@@ -139,7 +135,5 @@ build/
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
-<<<<<<< HEAD
->>>>>>> 2df7464... initial commit
-=======
->>>>>>> 2df7464... initial commit
+
+
