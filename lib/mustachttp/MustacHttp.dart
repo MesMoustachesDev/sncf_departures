@@ -27,14 +27,15 @@ class MustacHttp {
     return instance;
   }
 
-  Future<ParsedResponse<Map<String, dynamic>>> get(String path, Map<String, String> args) async {
+  Future<ParsedResponse<Map<String, dynamic>>> get(
+      String path, Map<String, String> args) async {
     String urlRequest = baseUrl + path;
 
     if (args != null) {
       var keys = args.keys.toList();
       if (keys.isNotEmpty) {
         urlRequest += "?" + keys[0] + "=" + args[keys[0]];
-        for (int index = 1; index < keys.length - 1; index++) {
+        for (int index = 1; index < keys.length; index++) {
           String value = keys[index];
           urlRequest += "&" + value + "=" + args[value];
         }
