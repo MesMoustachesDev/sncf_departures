@@ -29,7 +29,7 @@ class DepartureViewObject {
     time = e.format(DateTime.parse(departure.stopDateTime.departureDateTime));
     arrivalTime =
         e.format(DateTime.parse(departure.stopDateTime.arrivalDateTime));
-    direction = departure.route.direction.stopArea.name;
+    direction = departure.displayInformations.direction.split("(")[0];
     lineCode = name;
     lineColor = HexColor(departure.displayInformations.color);
 //    lineTextColor = HexColor(departure.displayInformations.textColor);

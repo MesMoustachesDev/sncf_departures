@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sncf_schedules/domain/model/StationViewObject.dart';
 import 'package:sncf_schedules/domain/usecase/GetDeparturesBloc.dart';
 import 'package:sncf_schedules/domain/usecase/PreferredStationsBloc.dart';
 import 'package:sncf_schedules/domain/usecase/SearchStationsBloc.dart';
-import 'package:sncf_schedules/presentation/home/widget/DepartureWidget.dart';
-import 'package:sncf_schedules/presentation/home/widget/SearchDepartureWidget.dart';
+import 'package:sncf_schedules/presentation/home/widget/departures/DepartureWidget.dart';
+import 'package:sncf_schedules/presentation/home/widget/departures/SearchDepartureWidget.dart';
 
 class DepartureParcoursWidget extends StatefulWidget {
   DepartureParcoursWidget(

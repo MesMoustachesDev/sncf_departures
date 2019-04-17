@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sncf_schedules/presentation/home/widget/DepartureWidget.dart';
-import 'package:sncf_schedules/presentation/home/widget/HomePage.dart';
+import 'package:sncf_schedules/presentation/home/widget/departures/DepartureWidget.dart';
+import 'package:sncf_schedules/presentation/home/widget/home/HomePage.dart';
 
 void main() => runApp(MyApp());
 
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.red,
       ),
-      home: HomePage(title: 'Départs Gare'),
+      home: HomePage(),
     );
   }
 }

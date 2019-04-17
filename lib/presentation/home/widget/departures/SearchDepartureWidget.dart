@@ -50,30 +50,36 @@ class SearchStationPageState extends State<SearchStationPage> {
   @override
   Widget build(BuildContext context) {
     return new Column(children: <Widget>[
-      TextField(
-          controller: myController,
-          onChanged: (text) {
-            _refresh(text);
-          }),
-      Flexible(
-          fit: FlexFit.tight,
+      Padding(
+          padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
+          child: TextField(
+              decoration: new InputDecoration(hintText: 'Chercher une station'),
+              controller: myController,
+              onChanged: (text) {
+                _refresh(text);
+              })),
+      Container(
+          height: 200,
+          width: 300,
+//          fit: FlexFit.tight,
           child: StreamBuilder(
               stream: widget.searchDeparturesBloc.allResults,
               builder:
                   (context, AsyncSnapshot<List<StationViewObject>> snapshot) {
                 if (snapshot.hasData) {
-                  return ListView.separated(
-                      separatorBuilder: (context, index) => Divider(
-                            color: Colors.black26,
-                          ),
-                      itemCount: snapshot.data.length,
-                      itemBuilder: (context, index) => Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: GestureDetector(
-                              child: StationListItem(
-                                  station: snapshot.data[index]),
-                              onTap: () =>
-                                  _saveNewPref(snapshot.data[index]))));
+                  return Card(
+                      child: ListView.separated(
+                          separatorBuilder: (context, index) => Divider(
+                                color: Colors.black26,
+                              ),
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (context, index) => Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: GestureDetector(
+                                  child: StationListItem(
+                                      station: snapshot.data[index]),
+                                  onTap: () =>
+                                      _saveNewPref(snapshot.data[index])))));
                 } else if (snapshot.hasError) {
                   return Text(snapshot.error.toString());
                 } else {

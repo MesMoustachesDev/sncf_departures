@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:sncf_schedules/data/model/search/SearchResponse.dart';
-import 'package:sncf_schedules/data/repo/departures/Departures.dart';
+import 'package:sncf_schedules/data/repo/departures/DeparturesRepository.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sncf_schedules/domain/model/StationViewObject.dart';
 import 'package:sncf_schedules/mustachttp/ParsedResponse.dart';
@@ -17,7 +17,6 @@ class SearchDeparturesBloc {
   StreamSink<String> get querySink => _departuresQuery.sink;
 
   fetchDepartures(String query) async {
-    _searchStationsFetcher.sink.add(null);
     Observable<ParsedResponse<List<PtObjects>>> observable =
         Observable.fromFuture(searchStationRepository.getStations(query));
 
