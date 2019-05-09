@@ -32,6 +32,8 @@ class HomePageState extends State<HomePage> {
   PreferredStationModel home;
   PreferredStationModel work;
 
+  ScrollController _scrollViewController;
+
   @override
   void initState() {
     super.initState();
@@ -46,6 +48,8 @@ class HomePageState extends State<HomePage> {
 
     preferredStationsBloc.homeStation.listen((data) => updateHome(data));
     preferredStationsBloc.workStation.listen((data) => updateWork(data));
+
+    _scrollViewController = new ScrollController();
   }
 
   void updateHome(PreferredStationModel station) {
@@ -110,10 +114,10 @@ class HomePageState extends State<HomePage> {
       ];
     } else {
       return <Widget>[
-        RoutesParcoursWidget(
-            homeSearchDeparturesBloc, homeToWorkRoutesBloc, home, work),
-        RoutesParcoursWidget(
-            workSearchDeparturesBloc, workToHomeRoutesBloc, work, home)
+        RoutesParcoursWidget(homeSearchDeparturesBloc, workSearchDeparturesBloc,
+            homeToWorkRoutesBloc, home, work),
+        RoutesParcoursWidget(homeSearchDeparturesBloc, workSearchDeparturesBloc,
+            workToHomeRoutesBloc, work, home)
       ];
     }
   }
@@ -126,19 +130,40 @@ class HomePageState extends State<HomePage> {
     }
   }
 
+  void deletePrefs() {
+    preferredStationsBloc.clearPrefs();
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
         length: 2,
         child: Scaffold(
-          appBar: AppBar(
-            title: getTitle(),
-            bottom: TabBar(
-              tabs: [getHomeTab(), getWorkTab()],
+//          appBar: AppBar(
+//            title: getTitle(),
+//            bottom: TabBar(
+//              tabs: [getHomeTab(), getWorkTab()],
+//            ),
+//          ),
+          body: new NestedScrollView(
+            controller: _scrollViewController,
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
+              return <Widget>[
+                new SliverAppBar(
+                  title: getTitle(),
+                  pinned: true,
+                  floating: true,
+                  forceElevated: innerBoxIsScrolled,
+                  bottom: new TabBar(
+                    tabs: <Tab>[getHomeTab(), getWorkTab()],
+                  ),
+                ),
+              ];
+            },
+            body: new TabBarView(
+              children: getTabsWidget(),
             ),
-          ),
-          body: TabBarView(
-            children: getTabsWidget(),
           ),
           bottomNavigationBar: BottomNavigationBar(
             items: <BottomNavigationBarItem>[
@@ -154,9 +179,9 @@ class HomePageState extends State<HomePage> {
             onTap: _onItemTapped,
           ),
           floatingActionButton: FloatingActionButton(
-//        onPressed: _refresh,
-            tooltip: 'Increment',
-            child: Icon(Icons.refresh),
+            onPressed: () => deletePrefs(),
+            tooltip: 'Reset all',
+            child: Icon(Icons.delete),
           ), // This trailing comma makes auto-formatting nicer for build methods.
         ));
   }
@@ -168,5 +193,6 @@ class HomePageState extends State<HomePage> {
     workDeparturesBloc.dispose();
     homeSearchDeparturesBloc.dispose();
     workSearchDeparturesBloc.dispose();
+    _scrollViewController.dispose();
   }
 }

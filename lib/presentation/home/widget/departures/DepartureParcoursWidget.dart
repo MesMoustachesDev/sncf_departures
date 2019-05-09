@@ -28,7 +28,8 @@ class DepartureParcoursWidget extends StatefulWidget {
 
 class DepartureParcoursState extends State<DepartureParcoursWidget> {
   Widget getMainWidget() {
-    if (widget.preferredStation == null) {
+    if (widget.preferredStation == null ||
+        widget.preferredStation.station == null) {
       return SearchStationPage(widget.searchDeparturesBloc, widget.stationType);
     } else {
       return DeparturePage(

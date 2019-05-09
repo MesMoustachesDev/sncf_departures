@@ -43,12 +43,13 @@ class JourneyListItem extends StatelessWidget {
                     style: TextStyle(
                         color: Colors.black12,
                         decoration: TextDecoration.lineThrough))),
-            Text(station.time,
+            Text(station.departureTime,
                 style: TextStyle(
                     color: Colors.black54, fontWeight: FontWeight.bold)),
           ]);
     } else {
-      return Text(station.time, style: TextStyle(color: Colors.black54));
+      return Text(station.departureTime,
+          style: TextStyle(color: Colors.black54));
     }
   }
 
@@ -58,9 +59,12 @@ class JourneyListItem extends StatelessWidget {
         onTap: () {},
         leading: CircleAvatar(
           backgroundColor: _getAvatarColor(journey),
-          child: Text(journey.duration, style: _getTextStyle(context, journey)),
+          child: Text(journey.departureTime,
+              style: _getTextStyle(context, journey)),
         ),
-        title: Text(journey.time, style: TextStyle(color: Colors.black54)),
+        title: Text(journey.duration,
+            style:
+                TextStyle(color: Colors.black54, fontWeight: FontWeight.bold)),
         subtitle: getTime(journey));
   }
 }

@@ -67,6 +67,18 @@ class PreferredStationsBloc {
     homeEvents.close();
     workEvents.close();
   }
+
+  clearPrefs() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+
+    sharedPreferences.setString("homeId", null);
+    sharedPreferences.setString("homeName", null);
+    _homeStationSubject.add(PreferredStationModel(null, StationType.home));
+
+    sharedPreferences.setString("workId", null);
+    sharedPreferences.setString("workName", null);
+    _workStationSubject.add(PreferredStationModel(null, StationType.work));
+  }
 }
 
 class PreferredStationModel {

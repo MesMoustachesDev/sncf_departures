@@ -407,6 +407,7 @@ class Sections {
   String departureDateTime;
   To to;
   Co2Emission co2Emission;
+  DisplayInformation displayInformation;
   int duration;
   String type;
   String id;
@@ -455,6 +456,23 @@ class Sections {
     data['type'] = this.type;
     data['id'] = this.id;
     data['mode'] = this.mode;
+    return data;
+  }
+}
+
+class DisplayInformations {
+  String color;
+  String code;
+
+  DisplayInformations({this.ref});
+
+  DisplayInformations.fromJson(Map<String, dynamic> json) {
+    ref = json['$ref'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['$ref'] = this.ref;
     return data;
   }
 }
