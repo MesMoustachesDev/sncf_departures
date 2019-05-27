@@ -18,7 +18,8 @@ class JourneyViewObject {
     int durationMin = journey.duration ~/ 60;
     int durationHour = durationMin ~/ 60;
     // ignore: unnecessary_brace_in_string_interps
-    duration = "${durationHour}h${durationMin % 60}min";
+    final formatter = new NumberFormat("##");
+    duration = "${durationHour}h${formatter.format(durationMin % 60)}min";
 
     sections = journey.sections
         .where((section) => section.duration != null)
@@ -49,7 +50,7 @@ class SectionViewObject {
     arrivalTime = e.format(DateTime.parse(section.arrivalDateTime));
 
     from = section.from.name.split("(")[0];
-    to = section.to.name;
+    to = section.to.name.split("(")[0];
 
     lineColor = HexColor(section.displayInformation.color);
     lineTextColor = HexColor(section.displayInformation.color);

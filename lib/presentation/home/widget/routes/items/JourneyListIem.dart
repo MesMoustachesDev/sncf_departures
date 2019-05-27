@@ -24,13 +24,13 @@ class JourneyListItem extends StatelessWidget {
 
   Widget getSections(JourneyViewObject station) {
     return Container(
-        height: 50,
+        height: 80,
         child: ListView.builder(
             shrinkWrap: true,
             itemCount: station.sections.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) => Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: EdgeInsets.fromLTRB(0.0, 8.0, 16.0, 8.0),
                 child: SectionListItem(section: station.sections[index]))));
   }
 
@@ -59,9 +59,14 @@ class SectionListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      Text("${section.departureTime} -> ${section.arrivalTime}"),
-      Text(section.from),
-    ]);
+    return Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("${section.departureTime} -> ${section.arrivalTime}"),
+          Text(section.from),
+          Text("|"),
+          Text(section.to),
+        ]);
   }
 }
