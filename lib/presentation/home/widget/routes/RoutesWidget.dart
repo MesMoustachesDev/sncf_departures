@@ -3,8 +3,8 @@ import 'package:sncf_schedules/domain/model/DepartureViewObject.dart';
 import 'package:sncf_schedules/domain/model/JourneyViewObject.dart';
 import 'package:sncf_schedules/domain/usecase/GetDeparturesBloc.dart';
 import 'package:sncf_schedules/domain/usecase/GetRoutesBloc.dart';
-import 'package:sncf_schedules/presentation/home/items/DepartureListIem.dart';
-import 'package:sncf_schedules/presentation/home/items/JourneyListIem.dart';
+import 'package:sncf_schedules/presentation/home/widget/departures/items/DepartureListIem.dart';
+import 'package:sncf_schedules/presentation/home/widget/routes/items/JourneyListIem.dart';
 
 class RoutesPage extends StatefulWidget {
   RoutesPage(String startStation, String stopStation, RoutesBloc routesBloc)
@@ -36,9 +36,11 @@ class RoutesPageState extends State<RoutesPage> {
         builder: (context, AsyncSnapshot<List<JourneyViewObject>> snapshot) {
           if (snapshot.hasData) {
             return ListView.separated(
+                physics: const BouncingScrollPhysics(),
                 separatorBuilder: (context, index) => Divider(
                       color: Colors.black26,
                     ),
+//                physics: BouncingScrollPhysics(),
                 itemCount: snapshot.data.length,
                 itemBuilder: (context, index) => Padding(
                     padding: EdgeInsets.all(8.0),

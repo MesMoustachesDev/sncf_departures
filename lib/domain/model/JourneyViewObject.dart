@@ -15,11 +15,19 @@ class JourneyViewObject {
 
     departureTime = e.format(DateTime.parse(journey.departureDateTime));
     arrivalTime = e.format(DateTime.parse(journey.arrivalDateTime));
-    duration = "${journey.duration ~/ 60} min";
+    int durationMin = journey.duration ~/ 60;
+    int durationHour = durationMin ~/ 60;
+    // ignore: unnecessary_brace_in_string_interps
+    duration = "${durationHour}h${durationMin % 60}min";
 
     sections = journey.sections
+        .where((section) => section.duration != null)
         .where((section) => section.duration > 0)
-        .map((section) => new SectionViewObject(section));
+        .where((section) => section.from != null)
+        .where((section) => section.to != null)
+        .where((section) => section.displayInformation != null)
+        .map((section) => new SectionViewObject(section))
+        .toList();
 
 //    lineColor = HexColor(journey.displayInformations.color);
 //    lineTextColor = HexColor(departure.displayInformations.textColor);
@@ -32,17 +40,18 @@ class SectionViewObject {
   String departureTime;
   String arrivalTime;
 
-  int lineColor;
-  int lineTextColor;
+  HexColor lineColor;
+  HexColor lineTextColor;
 
   SectionViewObject(Sections section) {
-    from = section.from.name;
+    final e = DateFormat("HH:mm");
+    departureTime = e.format(DateTime.parse(section.departureDateTime));
+    arrivalTime = e.format(DateTime.parse(section.arrivalDateTime));
+
+    from = section.from.name.split("(")[0];
     to = section.to.name;
 
-    arrivalTime = section.arrivalDateTime;
-    departureTime = section.departureDateTime;
-
-    lineColor = HexColor(section..color);
-    lineTextColor = HexColor(departure.displayInformations.textColor);
+    lineColor = HexColor(section.displayInformation.color);
+    lineTextColor = HexColor(section.displayInformation.color);
   }
 }

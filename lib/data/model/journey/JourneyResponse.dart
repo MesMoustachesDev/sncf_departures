@@ -407,7 +407,7 @@ class Sections {
   String departureDateTime;
   To to;
   Co2Emission co2Emission;
-  DisplayInformation displayInformation;
+  DisplayInformations displayInformation;
   int duration;
   String type;
   String id;
@@ -420,6 +420,7 @@ class Sections {
       this.departureDateTime,
       this.to,
       this.co2Emission,
+      this.displayInformation,
       this.duration,
       this.type,
       this.id,
@@ -432,6 +433,9 @@ class Sections {
     to = json['to'] != null ? new To.fromJson(json['to']) : null;
     co2Emission = json['co2_emission'] != null
         ? new Co2Emission.fromJson(json['co2_emission'])
+        : null;
+    displayInformation = json['display_informations'] != null
+        ? new DisplayInformations.fromJson(json['display_informations'])
         : null;
     duration = json['duration'];
     type = json['type'];
@@ -464,15 +468,17 @@ class DisplayInformations {
   String color;
   String code;
 
-  DisplayInformations({this.ref});
+  DisplayInformations({this.color, this.code});
 
   DisplayInformations.fromJson(Map<String, dynamic> json) {
-    ref = json['$ref'];
+    color = json['color'];
+    code = json['code'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['$ref'] = this.ref;
+    data['color'] = this.color;
+    data['code'] = this.code;
     return data;
   }
 }

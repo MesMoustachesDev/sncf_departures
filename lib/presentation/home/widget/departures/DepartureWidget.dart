@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sncf_schedules/domain/model/DepartureViewObject.dart';
 import 'package:sncf_schedules/domain/usecase/GetDeparturesBloc.dart';
-import 'package:sncf_schedules/presentation/home/items/DepartureListIem.dart';
+import 'package:sncf_schedules/presentation/home/widget/departures/items/DepartureListIem.dart';
 
 class DeparturePage extends StatefulWidget {
   DeparturePage(String station, DeparturesBloc departuresBloc)
@@ -30,6 +30,7 @@ class DeparturePageState extends State<DeparturePage> {
         builder: (context, AsyncSnapshot<List<DepartureViewObject>> snapshot) {
           if (snapshot.hasData) {
             return ListView.separated(
+                physics: const BouncingScrollPhysics(),
                 separatorBuilder: (context, index) => Divider(
                       color: Colors.black26,
                     ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sncf_schedules/domain/model/StationViewObject.dart';
 import 'package:sncf_schedules/domain/usecase/PreferredStationsBloc.dart';
 import 'package:sncf_schedules/domain/usecase/SearchStationsBloc.dart';
-import 'package:sncf_schedules/presentation/home/items/StationListIem.dart';
+import 'package:sncf_schedules/presentation/home/widget/items/StationListIem.dart';
 
 class SearchStationPage extends StatefulWidget {
   SearchStationPage(SearchDeparturesBloc searchDeparturesBloc, StationType type)

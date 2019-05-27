@@ -13,8 +13,8 @@ class RoutesParcoursWidget extends StatefulWidget {
       SearchDeparturesBloc searchStartStationBloc,
       SearchDeparturesBloc searchStopStationBloc,
       RoutesBloc routesBloc,
-      PreferredStationModel stopStation,
-      PreferredStationModel startStation)
+      PreferredStationModel startStation,
+      PreferredStationModel stopStation)
       : this.routesBloc = routesBloc,
         this.searchStartStationBloc = searchStartStationBloc,
         this.searchStopStationBloc = searchStopStationBloc,
