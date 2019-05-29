@@ -30,7 +30,6 @@ class DeparturePageState extends State<DeparturePage> {
         builder: (context, AsyncSnapshot<List<DepartureViewObject>> snapshot) {
           if (snapshot.hasData) {
             return ListView.separated(
-                physics: const BouncingScrollPhysics(),
                 separatorBuilder: (context, index) => Divider(
                       color: Colors.black26,
                     ),

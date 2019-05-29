@@ -18,7 +18,7 @@ class JourneyViewObject {
     int durationMin = journey.duration ~/ 60;
     int durationHour = durationMin ~/ 60;
     // ignore: unnecessary_brace_in_string_interps
-    final formatter = new NumberFormat("##");
+    final formatter = new NumberFormat("00");
     duration = "${durationHour}h${formatter.format(durationMin % 60)}min";
 
     sections = journey.sections

@@ -36,11 +36,9 @@ class RoutesPageState extends State<RoutesPage> {
         builder: (context, AsyncSnapshot<List<JourneyViewObject>> snapshot) {
           if (snapshot.hasData) {
             return ListView.separated(
-                physics: const BouncingScrollPhysics(),
                 separatorBuilder: (context, index) => Divider(
                       color: Colors.black26,
                     ),
-//                physics: BouncingScrollPhysics(),
                 itemCount: snapshot.data.length,
                 itemBuilder: (context, index) => Padding(
                     padding: EdgeInsets.all(8.0),
