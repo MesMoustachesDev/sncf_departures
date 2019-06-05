@@ -1,4 +1,7 @@
 # sncf_departures
+
+[![Codemagic build status](https://api.codemagic.io/apps/5cf7d80b4345630008fd10a4/5cf7d80b4345630008fd10a3/status_badge.svg)](https://codemagic.io/apps/5cf7d80b4345630008fd10a4/5cf7d80b4345630008fd10a3/latest_build)
+
 App to learn how to develop with flutter
 =======
 # sncf_schedules
