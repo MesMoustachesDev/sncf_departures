@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:sncf_schedules/data/model/departures/DeparturesResponse.dart';
-import 'package:sncf_schedules/data/model/journey/JourneyResponse.dart';
-import 'package:sncf_schedules/data/model/search/SearchResponse.dart';
-import 'package:sncf_schedules/data/repo/remote/RemoteAccess.dart';
+import 'package:sncf_schedules/data/model/departures/departures_response.dart';
+import 'package:sncf_schedules/data/model/journey/journey_response.dart';
+import 'package:sncf_schedules/data/model/search/search_response.dart';
+import 'package:sncf_schedules/data/repo/remote/remote_access.dart';
 import 'package:sncf_schedules/mustachttp/MustacHttp.dart';
 import 'package:sncf_schedules/mustachttp/ParsedResponse.dart';
 

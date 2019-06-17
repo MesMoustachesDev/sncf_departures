@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sncf_schedules/domain/model/DepartureViewObject.dart';
+import 'package:sncf_schedules/domain/model/departure_view_object.dart';
 
 class DepartureListItem extends StatelessWidget {
   DepartureListItem({DepartureViewObject station})

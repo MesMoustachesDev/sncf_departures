@@ -1,4 +1,4 @@
-import 'package:sncf_schedules/data/model/search/SearchResponse.dart';
+import 'package:sncf_schedules/data/model/search/search_response.dart';
 
 class StationViewObject {
   String name;

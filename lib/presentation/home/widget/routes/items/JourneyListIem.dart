@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sncf_schedules/domain/model/JourneyViewObject.dart';
+import 'package:sncf_schedules/domain/model/journey_view_object.dart';
 
 class JourneyListItem extends StatelessWidget {
   JourneyListItem({JourneyViewObject journey})

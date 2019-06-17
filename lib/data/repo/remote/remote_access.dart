@@ -1,8 +1,8 @@
-import 'package:sncf_schedules/mustachttp/MustacHttp.dart';
+import 'package:sncf_schedules/mustachttp/MustacHttp.dart' as remote_access;
 
 class RemoteAccess {
-  static MustacHttp getAccess() {
-    return MustacHttp.getInstance()
+  static remote_access.MustacHttp getAccess() {
+    return remote_access.MustacHttp.getInstance()
         .setBaseUrl("https://api.sncf.com/v1/coverage/sncf/")
         .setHeader({
       "Authorization":

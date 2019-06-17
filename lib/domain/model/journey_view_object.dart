@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
-import 'package:sncf_schedules/data/model/departures/DeparturesResponse.dart';
-import 'package:sncf_schedules/data/model/journey/JourneyResponse.dart';
+import 'package:sncf_schedules/data/model/departures/departures_response.dart';
+import 'package:sncf_schedules/data/model/journey/journey_response.dart';
 import 'package:sncf_schedules/presentation/utils/HexToColor.dart';
 
 class JourneyViewObject {
