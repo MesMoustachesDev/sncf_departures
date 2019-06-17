@@ -24,18 +24,6 @@ class HomeScreen extends StatefulWidget {
 class HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
-//  DeparturesBloc homeDeparturesBloc;
-//  DeparturesBloc workDeparturesBloc;
-//
-//  SearchDeparturesBloc homeSearchDeparturesBloc;
-//  SearchDeparturesBloc workSearchDeparturesBloc;
-//
-//  RoutesBloc homeToWorkRoutesBloc;
-//  RoutesBloc workToHomeRoutesBloc;
-//
-//  PreferredStationModel home;
-//  PreferredStationModel work;
-
   ScrollController _scrollViewController;
 
   @override
@@ -97,7 +85,7 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   List<Widget> getTabsWidget() {
-    if (_selectedIndex == 0) {
+    if (_selectedIndex == 1) {
       return <Widget>[
         DeparturePage(StationType.home),
         DeparturePage(StationType.work)
@@ -106,10 +94,6 @@ class HomeScreenState extends State<HomeScreen> {
       return <Widget>[
         RoutesPage(StationType.home),
         RoutesPage(StationType.work)
-//        RoutesParcoursWidget(homeSearchDeparturesBloc, workSearchDeparturesBloc,
-//            homeToWorkRoutesBloc, home, work),
-//        RoutesParcoursWidget(homeSearchDeparturesBloc, workSearchDeparturesBloc,
-//            workToHomeRoutesBloc, work, home)
       ];
     }
   }

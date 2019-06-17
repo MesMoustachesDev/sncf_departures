@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
       ],
 //      bloc: prefsBloc,
       child: MaterialApp(
-        title: "Ewi",
+        title: "Sncf Commuting",
         theme: ThemeData(
           // This is the theme of your application.
           //
