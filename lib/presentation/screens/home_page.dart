@@ -41,18 +41,6 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-//    homeDeparturesBloc = DeparturesBloc();
-//    workDeparturesBloc = DeparturesBloc();
-//
-//    homeToWorkRoutesBloc = RoutesBloc();
-//    workToHomeRoutesBloc = RoutesBloc();
-//
-//    homeSearchDeparturesBloc = SearchDeparturesBloc();
-//    workSearchDeparturesBloc = SearchDeparturesBloc();
-//
-//    preferredStationsBloc.homeStation.listen((data) => updateHome(data));
-//    preferredStationsBloc.workStation.listen((data) => updateWork(data));
-
     _scrollViewController = new ScrollController();
   }
 
@@ -68,37 +56,37 @@ class HomeScreenState extends State<HomeScreen> {
 //    });
   }
 
-  Widget getHomeTab() {
+  Widget getHomeTab([PrefsSet state]) {
     var title = "Home";
-//    if (_selectedIndex == 1) {
-//      if (home != null && home.station != null) {
-//        title = home.station.name;
-//      }
-//    } else {
-//      if (work != null &&
-//          work.station != null &&
-//          home != null &&
-//          home.station != null) {
-//        title = "De ${home.station.name}\nvers ${work.station.name}";
-//      }
-//    }
+    if (_selectedIndex == 1) {
+      if (state.home != null && state.home.name != null) {
+        title = state.home.name;
+      }
+    } else {
+      if (state.work != null &&
+          state.work.name != null &&
+          state.home != null &&
+          state.home.name != null) {
+        title = "De ${state.home.name}\nvers ${state.work.name}";
+      }
+    }
     return Tab(icon: Icon(Icons.home), text: title);
   }
 
-  Widget getWorkTab() {
+  Widget getWorkTab(PrefsSet state) {
     var title = "Work";
-//    if (_selectedIndex == 1) {
-//      if (work != null && work.station != null) {
-//        title = work.station.name;
-//      }
-//    } else {
-//      if (work != null &&
-//          work.station != null &&
-//          home != null &&
-//          home.station != null) {
-//        title = "De ${work.station.name}\nvers ${home.station.name}";
-//      }
-//    }
+    if (_selectedIndex == 1) {
+      if (state.work != null && state.work.name != null) {
+        title = state.work.name;
+      }
+    } else {
+      if (state.work != null &&
+          state.work.name != null &&
+          state.home != null &&
+          state.home.name != null) {
+        title = "De ${state.work.name}\nvers ${state.home.name}";
+      }
+    }
     return Tab(icon: Icon(Icons.work), text: title);
   }
 
@@ -156,7 +144,7 @@ class HomeScreenState extends State<HomeScreen> {
                           floating: true,
                           forceElevated: innerBoxIsScrolled,
                           bottom: new TabBar(
-                            tabs: <Tab>[getHomeTab(), getWorkTab()],
+                            tabs: <Tab>[getHomeTab(state), getWorkTab(state)],
                           ),
                         ),
                       ];
