@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sncf_schedules/domain/bloc/prefs/prefs_bloc.dart';
 import 'package:sncf_schedules/domain/bloc/prefs/prefs_events.dart';
 import 'package:sncf_schedules/domain/bloc/prefs/prefs_states.dart';
 import 'package:sncf_schedules/domain/model/station_view_object.dart';
-import 'package:sncf_schedules/presentation/home/widget/items/station_list_item.dart';
 import 'package:sncf_schedules/presentation/navigation/navigation.dart';
 import 'package:sncf_schedules/presentation/utils/arch_sample_keys.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'home_page.dart';
+import 'items/station_list_item.dart';
 
 typedef OnSaveCallback = Function(String task, String note);
 
@@ -29,24 +28,7 @@ class SetPrefsScreen extends StatefulWidget {
   }
 }
 
-//class SetPrefsScreen extends StatefulWidget {
-//  SetPrefsScreen(
-//      SearchDeparturesBloc searchStartBloc, SearchDeparturesBloc searchStopBloc)
-//      : this.searchStartBloc = searchStartBloc,
-//        this.searchStopBloc = searchStopBloc;
-//
-//  final SearchDeparturesBloc searchStartBloc;
-//  final SearchDeparturesBloc searchStopBloc;
-//
-//  SetPrefsScreenState createState() {
-//    return new SetPrefsScreenState();
-//  }
-//}
-
 class SetPrefsScreenState extends State<SetPrefsScreen> {
-  StationViewObject _home;
-  StationViewObject _work;
-
   List<StationViewObject> stations = new List();
   final startController = TextEditingController();
   final stopController = TextEditingController();
@@ -56,22 +38,6 @@ class SetPrefsScreenState extends State<SetPrefsScreen> {
     widget.onInit();
     super.initState();
   }
-
-//  void _refreshStart(String query) {
-//    widget.searchStartBloc.fetchDepartures(query);
-//  }
-
-//  void _refreshStop(String query) {
-//    widget.searchStopBloc.fetchDepartures(query);
-//  }
-
-//  void _saveNewPref(StationViewObject station, StationType type) {
-//    if (type == StationType.home) {
-//      preferredStationsBloc.homeEvents.add(station);
-//    } else if (type == StationType.work) {
-//      preferredStationsBloc.workEvents.add(station);
-//    }
-//  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,13 +49,28 @@ class SetPrefsScreenState extends State<SetPrefsScreen> {
         body: new Column(children: <Widget>[
           Padding(
               padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
-              child: TextField(
-                  decoration:
-                      new InputDecoration(hintText: 'Chercher une station'),
-                  controller: startController,
-                  onChanged: (text) {
-                    prefsBloc.dispatch(SearchHomePrefs(query: text));
+              child: BlocBuilder(
+                  bloc: prefsBloc,
+                  builder: (BuildContext context, PrefsState state) {
+                    if (state is HomeSet) {
+                      return TextField(
+                          decoration:
+                              new InputDecoration(hintText: state.home.id),
+                          controller: startController,
+                          onChanged: (text) {
+                            prefsBloc.dispatch(SearchHomePrefs(query: text));
 //                      _refreshStart(text);
+                          });
+                    } else {
+                      return TextField(
+                          decoration: new InputDecoration(
+                              hintText: 'Chercher une station'),
+                          controller: startController,
+                          onChanged: (text) {
+                            prefsBloc.dispatch(SearchHomePrefs(query: text));
+//                      _refreshStart(text);
+                          });
+                    }
                   })),
           Container(
               height: 200,

@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sncf_schedules/domain/bloc/prefs/prefs_bloc.dart';
 import 'package:sncf_schedules/domain/bloc/prefs/prefs_events.dart';
 import 'package:sncf_schedules/domain/bloc/prefs/prefs_states.dart';
-import 'package:sncf_schedules/presentation/home/widget/departures/departure_page.dart';
-import 'package:sncf_schedules/presentation/home/widget/routes/routes_page.dart';
+import 'package:sncf_schedules/presentation/screens/home/widget/departures/departure_page.dart';
+import 'package:sncf_schedules/presentation/screens/home/widget/journeys/journeys_page.dart';
 import 'package:sncf_schedules/presentation/utils/arch_sample_keys.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -30,18 +30,6 @@ class HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _scrollViewController = new ScrollController();
-  }
-
-  void updateHome(String station) {
-//    setState(() {
-//      home = station;
-//    });
-  }
-
-  void updateWork(String station) {
-//    setState(() {
-//      work = station;
-//    });
   }
 
   Widget getHomeTab([PrefsSet state]) {
@@ -92,8 +80,8 @@ class HomeScreenState extends State<HomeScreen> {
       ];
     } else {
       return <Widget>[
-        RoutesPage(StationType.home),
-        RoutesPage(StationType.work)
+        JourneyssPage(StationType.home),
+        JourneyssPage(StationType.work)
       ];
     }
   }
@@ -159,23 +147,6 @@ class HomeScreenState extends State<HomeScreen> {
                 ));
           } else if (state is PrefsUninitialized) {
             return Container();
-
-//            Navigator.of(context).push(
-//              MaterialPageRoute(
-//                builder: (context) {
-//                  return SetPrefsScreen(
-//                    key: SncfSchedulesKeys.setPrefsScreen,
-////                    onSave: (task, note) {
-////                      todosBloc.dispatch(
-////                        UpdateTodo(
-////                          todo.copyWith(task: task, note: note),
-////                        ),
-////                      );
-////                    },
-//                  );
-//                },
-//              ),
-//            );
           }
         });
   }

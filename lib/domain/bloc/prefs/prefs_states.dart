@@ -23,6 +23,11 @@ class PrefsError extends PrefsState {
   String toString() => 'PostError';
 }
 
+class PrefsLoading extends PrefsState {
+  @override
+  String toString() => 'PrefsLoading';
+}
+
 class PrefsSet extends PrefsState {
   final StationViewObject home;
   final StationViewObject work;

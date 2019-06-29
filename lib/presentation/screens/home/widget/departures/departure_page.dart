@@ -4,7 +4,8 @@ import 'package:sncf_schedules/domain/bloc/departures/departure_events.dart';
 import 'package:sncf_schedules/domain/bloc/departures/departures_bloc.dart';
 import 'package:sncf_schedules/domain/bloc/departures/departures_states.dart';
 import 'package:sncf_schedules/domain/bloc/prefs/prefs_states.dart';
-import 'package:sncf_schedules/presentation/home/widget/departures/items/DepartureListIem.dart';
+
+import 'items/DepartureListIem.dart';
 
 class DeparturePage extends StatefulWidget {
   DeparturePage(StationType stationType) : this.stationType = stationType;

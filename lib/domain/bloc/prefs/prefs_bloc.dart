@@ -13,7 +13,7 @@ class PrefsBloc extends Bloc<PrefsEvent, PrefsState> {
   SharedPreferences sharedPreferences;
 
   @override
-  get initialState => PrefsUninitialized();
+  get initialState => PrefsLoading();
 
   @override
   Stream<PrefsState> mapEventToState(PrefsEvent event) async* {

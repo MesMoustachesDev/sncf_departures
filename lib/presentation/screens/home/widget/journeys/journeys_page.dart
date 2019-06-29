@@ -4,19 +4,20 @@ import 'package:sncf_schedules/domain/bloc/journeys/journeys_bloc.dart';
 import 'package:sncf_schedules/domain/bloc/journeys/journeys_events.dart';
 import 'package:sncf_schedules/domain/bloc/journeys/journeys_states.dart';
 import 'package:sncf_schedules/domain/bloc/prefs/prefs_states.dart';
-import 'package:sncf_schedules/presentation/home/widget/routes/items/JourneyListIem.dart';
 
-class RoutesPage extends StatefulWidget {
-  RoutesPage(StationType stationType) : this.stationType = stationType;
+import 'items/JourneyListIem.dart';
+
+class JourneyssPage extends StatefulWidget {
+  JourneyssPage(StationType stationType) : this.stationType = stationType;
 
   final StationType stationType;
 
-  RoutesPageState createState() {
-    return new RoutesPageState();
+  JourneyssPageState createState() {
+    return new JourneyssPageState();
   }
 }
 
-class RoutesPageState extends State<RoutesPage> {
+class JourneyssPageState extends State<JourneyssPage> {
   JourneysBloc _journeysBloc;
 
   @override

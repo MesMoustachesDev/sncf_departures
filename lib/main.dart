@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:sncf_schedules/domain/bloc/prefs/prefs_bloc.dart';
 import 'package:sncf_schedules/domain/bloc/prefs/prefs_events.dart';
 import 'package:sncf_schedules/presentation/navigation/navigation.dart';
-import 'package:sncf_schedules/presentation/screens/home_page.dart';
-import 'package:sncf_schedules/presentation/screens/set_prefs_screen.dart';
+import 'package:sncf_schedules/presentation/screens/home/home_page.dart';
+import 'package:sncf_schedules/presentation/screens/prefs/set_prefs_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sncf_schedules/presentation/screens/splash/splash_screen.dart';
 import 'package:sncf_schedules/presentation/utils/arch_sample_keys.dart';
 import 'package:sncf_schedules/presentation/utils/blocs_delegate.dart';
 
@@ -61,6 +62,15 @@ class MyApp extends StatelessWidget {
           Navigation.home: (context) {
             return HomeScreen(
               onInit: () => prefsBloc.dispatch(LoadPrefs()),
+            );
+          },
+          Navigation.splash: (context) {
+            return SplashScreen(
+              onInit: () =>
+                  Future.delayed(const Duration(milliseconds: 1500), () {
+                    prefsBloc.dispatch(LoadPrefs());
+                  }),
+              key: SncfSchedulesKeys.splashScreen,
             );
           },
         },
