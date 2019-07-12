@@ -4,6 +4,7 @@ import 'package:sncf_schedules/domain/bloc/departures/departure_events.dart';
 import 'package:sncf_schedules/domain/bloc/departures/departures_bloc.dart';
 import 'package:sncf_schedules/domain/bloc/departures/departures_states.dart';
 import 'package:sncf_schedules/domain/bloc/prefs/prefs_states.dart';
+import 'package:sncf_schedules/presentation/utils/loader.dart';
 
 import 'items/DepartureListIem.dart';
 
@@ -63,7 +64,7 @@ class DeparturePageState extends State<DeparturePage> {
           } else if (state is DeparturesFailure) {
             return Text(state.error.toString());
           } else if (state is DeparturesLoading) {
-            return Center(child: CircularProgressIndicator());
+            return getLoader();
           } else {
             return Container();
           }

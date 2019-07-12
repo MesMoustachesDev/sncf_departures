@@ -52,11 +52,6 @@ class MyApp extends StatelessWidget {
             return SetPrefsScreen(
               onInit: () => prefsBloc.dispatch(LoadPrefs()),
               key: SncfSchedulesKeys.setPrefsScreen,
-//                onSave: (task, note) {
-//                prefsBloc.dispatch(
-//                  AddTodo(Todo(task, note: note)),
-//                );
-//                }
             );
           },
           Navigation.home: (context) {
@@ -67,7 +62,7 @@ class MyApp extends StatelessWidget {
           Navigation.splash: (context) {
             return SplashScreen(
               onInit: () =>
-                  Future.delayed(const Duration(milliseconds: 1500), () {
+                  Future.delayed(const Duration(milliseconds: 500), () {
                     prefsBloc.dispatch(LoadPrefs());
                   }),
               key: SncfSchedulesKeys.splashScreen,

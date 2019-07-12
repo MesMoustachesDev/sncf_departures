@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sncf_schedules/domain/bloc/prefs/prefs_bloc.dart';
 import 'package:sncf_schedules/domain/bloc/prefs/prefs_events.dart';
 import 'package:sncf_schedules/domain/bloc/prefs/prefs_states.dart';
+import 'package:sncf_schedules/presentation/navigation/navigation.dart';
 import 'package:sncf_schedules/presentation/screens/home/widget/departures/departure_page.dart';
 import 'package:sncf_schedules/presentation/screens/home/widget/journeys/journeys_page.dart';
+import 'package:sncf_schedules/presentation/screens/prefs/set_prefs_screen.dart';
 import 'package:sncf_schedules/presentation/utils/arch_sample_keys.dart';
+import 'package:sncf_schedules/presentation/utils/loader.dart';
 
 class HomeScreen extends StatefulWidget {
   final void Function() onInit;
@@ -146,10 +150,38 @@ class HomeScreenState extends State<HomeScreen> {
                   ), // This trailing comma makes auto-formatting nicer for build methods.
                 ));
           } else if (state is PrefsUninitialized) {
+            SchedulerBinding.instance.addPostFrameCallback((_) {
+              Navigator.pushReplacementNamed(context, Navigation.setPrefs);
+            });
             return Container();
+          } else {
+            return getLoader();
           }
         });
   }
+
+  PageRoute getRouteBuilder() => PageRouteBuilder(
+        pageBuilder: (BuildContext context, Animation<double> animation,
+            Animation<double> secondaryAnimation) {
+          return SetPrefsScreen();
+        },
+        transitionsBuilder: (BuildContext context, Animation<double> animation,
+            Animation<double> secondaryAnimation, Widget child) {
+          return SlideTransition(
+            position: new Tween<Offset>(
+              begin: const Offset(-1.0, 0.0),
+              end: Offset.zero,
+            ).animate(animation),
+            child: new SlideTransition(
+              position: new Tween<Offset>(
+                begin: Offset.zero,
+                end: const Offset(-1.0, 0.0),
+              ).animate(secondaryAnimation),
+              child: child,
+            ),
+          );
+        },
+      );
 
   @override
   void dispose() {

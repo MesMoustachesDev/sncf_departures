@@ -8,7 +8,7 @@ class MustacHttp {
   String baseUrl;
   Map<String, String> headers;
 
-  final int NO_INTERNET = 404;
+  final int noInternet = 404;
 
   static MustacHttp getInstance() {
     if (instance == null) {
@@ -45,7 +45,7 @@ class MustacHttp {
         await http.get(urlRequest, headers: headers).catchError((resp) {});
 
     if (response == null) {
-      return new ParsedResponse(NO_INTERNET, null);
+      return new ParsedResponse(noInternet, null);
     }
 
     //If there was an error return an empty list

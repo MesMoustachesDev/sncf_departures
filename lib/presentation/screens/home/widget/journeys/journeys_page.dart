@@ -4,6 +4,7 @@ import 'package:sncf_schedules/domain/bloc/journeys/journeys_bloc.dart';
 import 'package:sncf_schedules/domain/bloc/journeys/journeys_events.dart';
 import 'package:sncf_schedules/domain/bloc/journeys/journeys_states.dart';
 import 'package:sncf_schedules/domain/bloc/prefs/prefs_states.dart';
+import 'package:sncf_schedules/presentation/utils/loader.dart';
 
 import 'items/JourneyListIem.dart';
 
@@ -63,7 +64,7 @@ class JourneyssPageState extends State<JourneyssPage> {
           } else if (state is JourneysFailure) {
             return Text(state.error.toString());
           } else if (state is JourneysLoading) {
-            return Center(child: CircularProgressIndicator());
+            return getLoader();
           } else {
             return Container();
           }

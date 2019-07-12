@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:sncf_schedules/data/model/departures/departures_response.dart';
 import 'package:sncf_schedules/data/model/journey/journey_response.dart';
 import 'package:sncf_schedules/data/model/search/search_response.dart';
-import 'package:sncf_schedules/data/repo/remote/remote_access.dart';
+import 'package:sncf_schedules/data/repo/remote/remote_data_source.dart';
 import 'package:sncf_schedules/mustachttp/MustacHttp.dart';
 import 'package:sncf_schedules/mustachttp/ParsedResponse.dart';
 
@@ -12,8 +12,7 @@ class RoutesRepository {
   Future<ParsedResponse<List<Journeys>>> getRoutes(
       String start, String stop, String time) async {
     ParsedResponse<Map<String, dynamic>> response =
-        await RemoteAccess.getAccess().get("journeys/",
-            {"from": start, "to": stop, "datetime": time, "count": "100"});
+        await RemoteAccess.getRoutes(start, stop, time);
 
     var departureResponse = JourneyResponse.fromJson(response.body);
     return new ParsedResponse(response.statusCode, departureResponse.journeys);

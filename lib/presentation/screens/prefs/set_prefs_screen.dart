@@ -44,7 +44,7 @@ class SetPrefsScreenState extends State<SetPrefsScreen> {
     final prefsBloc = BlocProvider.of<PrefsBloc>(context);
     return Scaffold(
         appBar: AppBar(
-          title: Text("Enon"),
+          title: Text("Choisissez vos gares"),
         ),
         body: new Column(children: <Widget>[
           Padding(
@@ -53,24 +53,17 @@ class SetPrefsScreenState extends State<SetPrefsScreen> {
                   bloc: prefsBloc,
                   builder: (BuildContext context, PrefsState state) {
                     if (state is HomeSet) {
-                      return TextField(
-                          decoration:
-                              new InputDecoration(hintText: state.home.id),
-                          controller: startController,
-                          onChanged: (text) {
-                            prefsBloc.dispatch(SearchHomePrefs(query: text));
-//                      _refreshStart(text);
-                          });
-                    } else {
-                      return TextField(
-                          decoration: new InputDecoration(
-                              hintText: 'Chercher une station'),
-                          controller: startController,
-                          onChanged: (text) {
-                            prefsBloc.dispatch(SearchHomePrefs(query: text));
-//                      _refreshStart(text);
-                          });
+                      startController.text = state.home.id;
                     }
+                    return TextField(
+                        autofocus: true,
+                        decoration: new InputDecoration(
+                            hintText: 'Chercher une station'),
+                        controller: startController,
+                        onChanged: (text) {
+                          prefsBloc.dispatch(SearchHomePrefs(query: text));
+//                      _refreshStart(text);
+                        });
                   })),
           Container(
               height: 200,
@@ -117,12 +110,20 @@ class SetPrefsScreenState extends State<SetPrefsScreen> {
                   })),
           Padding(
               padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
-              child: TextField(
-                  decoration:
-                      new InputDecoration(hintText: 'Chercher une station'),
-                  controller: stopController,
-                  onChanged: (text) {
-                    prefsBloc.dispatch(SearchWorkPrefs(query: text));
+              child: BlocBuilder(
+                  bloc: prefsBloc,
+                  builder: (BuildContext context, PrefsState state) {
+                    if (state is WorkSet) {
+                      stopController.text = state.work.id;
+                    }
+                    return TextField(
+                        decoration: new InputDecoration(
+                            hintText: 'Chercher une station'),
+                        controller: stopController,
+                        onChanged: (text) {
+                          prefsBloc.dispatch(SearchWorkPrefs(query: text));
+//                      _refreshStart(text);
+                        });
                   })),
           Container(
               height: 200,
