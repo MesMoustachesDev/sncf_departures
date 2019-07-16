@@ -146,7 +146,7 @@ class HomeScreenState extends State<HomeScreen> {
                   floatingActionButton: FloatingActionButton(
                     onPressed: () => prefsBloc.dispatch(ClearPrefs()),
                     tooltip: 'Reset all',
-                    child: Icon(Icons.delete),
+                    child: Icon(Icons.settings),
                   ), // This trailing comma makes auto-formatting nicer for build methods.
                 ));
           } else if (state is PrefsUninitialized) {

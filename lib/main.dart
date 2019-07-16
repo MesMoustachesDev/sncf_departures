@@ -7,6 +7,7 @@ import 'package:sncf_schedules/presentation/screens/home/home_page.dart';
 import 'package:sncf_schedules/presentation/screens/prefs/set_prefs_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sncf_schedules/presentation/screens/splash/splash_screen.dart';
+import 'package:sncf_schedules/presentation/utils/HexToColor.dart';
 import 'package:sncf_schedules/presentation/utils/arch_sample_keys.dart';
 import 'package:sncf_schedules/presentation/utils/blocs_delegate.dart';
 
@@ -45,7 +46,8 @@ class MyApp extends StatelessWidget {
           // or simply save your changes to "hot reload" in a Flutter IDE).
           // Notice that the counter didn't reset back to zero; the application
           // is not restarted.
-          primarySwatch: Colors.red,
+          primaryColor: HexColor("#3C353C"),
+          accentColor: HexColor("#F47925"),
         ),
         routes: {
           Navigation.setPrefs: (context) {
