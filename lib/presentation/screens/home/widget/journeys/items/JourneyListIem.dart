@@ -30,23 +30,28 @@ class JourneyListItem extends StatelessWidget {
             itemCount: station.sections.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) => Padding(
-                padding: EdgeInsets.fromLTRB(0.0, 8.0, 16.0, 8.0),
+                padding: EdgeInsets.fromLTRB(0.0, 8.0, 8.0, 8.0),
                 child: SectionListItem(section: station.sections[index]))));
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-        onTap: () {},
-        leading: CircleAvatar(
-          backgroundColor: _getAvatarColor(journey),
-          child: Text(journey.departureTime,
-              style: _getTextStyle(context, journey)),
-        ),
-        title: Text(journey.duration,
-            style:
-                TextStyle(color: Colors.black54, fontWeight: FontWeight.bold)),
-        subtitle: getSections(journey));
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListTile(
+            onTap: () {},
+            leading: CircleAvatar(
+              backgroundColor: _getAvatarColor(journey),
+              child: Text(journey.departureTime,
+                  style: _getTextStyle(context, journey)),
+            ),
+            title: Text(journey.duration,
+                style:
+                    TextStyle(color: Colors.black54, fontWeight: FontWeight.bold)),
+            subtitle: getSections(journey)),
+      ),
+    );
   }
 }
 

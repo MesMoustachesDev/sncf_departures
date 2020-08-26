@@ -103,7 +103,7 @@ class HomeScreenState extends State<HomeScreen> {
     final prefsBloc = BlocProvider.of<PrefsBloc>(context);
 
     return BlocBuilder(
-        bloc: prefsBloc,
+        cubit: prefsBloc,
         builder: (BuildContext context, PrefsState state) {
           if (state is PrefsSet) {
             return DefaultTabController(
@@ -144,7 +144,7 @@ class HomeScreenState extends State<HomeScreen> {
                     onTap: _onItemTapped,
                   ),
                   floatingActionButton: FloatingActionButton(
-                    onPressed: () => prefsBloc.dispatch(ClearPrefs()),
+                    onPressed: () => prefsBloc.add(ClearPrefs()),
                     tooltip: 'Reset all',
                     child: Icon(Icons.settings),
                   ), // This trailing comma makes auto-formatting nicer for build methods.

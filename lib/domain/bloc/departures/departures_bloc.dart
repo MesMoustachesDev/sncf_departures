@@ -26,17 +26,14 @@ class DeparturesBloc extends Bloc<DeparturesEvent, DepartureState> {
   StationViewObject _home;
   StationViewObject _work;
 
-  DeparturesBloc({@required this.prefsBloc}) {
-    _prefsSubscription = prefsBloc.state.listen((state) {
+  DeparturesBloc(this.prefsBloc, DepartureState initialState) : super(initialState) {
+    _prefsSubscription = prefsBloc.listen((state) {
       if (state is PrefsSet) {
         _home = state.home;
         _work = state.work;
       }
     });
   }
-
-  @override
-  get initialState => DeparturesInitial();
 
   @override
   Stream<DepartureState> mapEventToState(DeparturesEvent event) async* {
@@ -86,22 +83,9 @@ class DeparturesBloc extends Bloc<DeparturesEvent, DepartureState> {
   }
 
   @override
-  Stream<DepartureState> transform(
-    Stream<DeparturesEvent> events,
-    Stream<DepartureState> Function(DeparturesEvent event) next,
-  ) {
-    return super.transform(
-      (events as Observable<DeparturesEvent>).debounceTime(
-        Duration(milliseconds: 500),
-      ),
-      next,
-    );
-  }
-
-  @override
-  void dispose() {
-    _prefsSubscription.cancel();
-    super.dispose();
+  Future<void> close() {
+    _prefsSubscription?.cancel();
+    return super.close();
   }
 
   bool isToday(Departures departure) {

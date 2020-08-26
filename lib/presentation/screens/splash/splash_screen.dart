@@ -1,4 +1,3 @@
-import "package:flare_flutter/flare_actor.dart";
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,7 +34,7 @@ class SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     final prefsBloc = BlocProvider.of<PrefsBloc>(context);
     return BlocBuilder(
-        bloc: prefsBloc,
+        cubit: prefsBloc,
         builder: (BuildContext context, PrefsState state) {
           if (state is PrefsSet) {
             print("pushing home");

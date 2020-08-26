@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 abstract class PrefsEvent extends Equatable {
-  PrefsEvent([List props = const []]) : super(props);
+  PrefsEvent() : super();
 }
 
 class SetWorkPrefs extends PrefsEvent {
@@ -11,10 +11,13 @@ class SetWorkPrefs extends PrefsEvent {
   SetWorkPrefs({
     this.workName,
     this.workId,
-  }) : super([workName, workId]);
+  }) : super();
 
   @override
   String toString() => 'SetWorkPrefs';
+
+  @override
+  List<Object> get props => [workName, workId];
 }
 
 class SetHomePrefs extends PrefsEvent {
@@ -24,7 +27,10 @@ class SetHomePrefs extends PrefsEvent {
   SetHomePrefs({
     this.homeName,
     this.homeId,
-  }) : super([homeName, homeId]);
+  }) : super();
+
+  @override
+  List<Object> get props => [homeName, homeId];
 
   @override
   String toString() => 'SetHomePrefs';
@@ -33,11 +39,17 @@ class SetHomePrefs extends PrefsEvent {
 class LoadPrefs extends PrefsEvent {
   @override
   String toString() => 'LoadPrefs';
+
+  @override
+  List<Object> get props => ['LoadPrefs'];
 }
 
 class ClearPrefs extends PrefsEvent {
   @override
   String toString() => 'clear prefs';
+
+  @override
+  List<Object> get props => ['clear prefs'];
 }
 
 class SearchHomePrefs extends PrefsEvent {
@@ -45,12 +57,13 @@ class SearchHomePrefs extends PrefsEvent {
 
   SearchHomePrefs({
     this.query,
-  }) : super([
-          query,
-        ]);
+  }) : super();
 
   @override
   String toString() => 'SearchHomePrefs';
+
+  @override
+  List<Object> get props => [query];
 }
 
 class SearchWorkPrefs extends PrefsEvent {
@@ -58,10 +71,11 @@ class SearchWorkPrefs extends PrefsEvent {
 
   SearchWorkPrefs({
     this.query,
-  }) : super([
-          query,
-        ]);
+  }) : super();
 
   @override
   String toString() => 'SearchWorkPrefs';
+
+  @override
+  List<Object> get props => [query];
 }

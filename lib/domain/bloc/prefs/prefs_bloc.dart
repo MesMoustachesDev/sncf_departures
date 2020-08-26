@@ -1,8 +1,6 @@
 import 'dart:async';
 
-import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sncf_schedules/data/model/search/search_response.dart';
 import 'package:sncf_schedules/data/repo/departures/departures_repository.dart';
 import 'package:sncf_schedules/domain/bloc/prefs/prefs_events.dart';
 import 'package:sncf_schedules/domain/bloc/prefs/prefs_states.dart';
@@ -12,8 +10,10 @@ import 'package:sncf_schedules/domain/model/station_view_object.dart';
 class PrefsBloc extends Bloc<PrefsEvent, PrefsState> {
   SharedPreferences sharedPreferences;
 
-  @override
-  get initialState => PrefsLoading();
+  PrefsBloc(PrefsState initialState) : super(initialState);
+
+//  @override
+//  get initialState => PrefsLoading();
 
   @override
   Stream<PrefsState> mapEventToState(PrefsEvent event) async* {
@@ -33,12 +33,12 @@ class PrefsBloc extends Bloc<PrefsEvent, PrefsState> {
       sharedPreferences = await SharedPreferences.getInstance();
       sharedPreferences.setString("homeId", event.homeId);
       sharedPreferences.setString("homeName", event.homeName);
-      dispatch(LoadPrefs());
+      add(LoadPrefs());
     } else if (event is SetWorkPrefs) {
       sharedPreferences = await SharedPreferences.getInstance();
       sharedPreferences.setString("workId", event.workId);
       sharedPreferences.setString("workName", event.workName);
-      dispatch(LoadPrefs());
+      add(LoadPrefs());
     } else if (event is LoadPrefs) {
       sharedPreferences = await SharedPreferences.getInstance();
       String homeId = sharedPreferences.getString("homeId");
@@ -67,21 +67,9 @@ class PrefsBloc extends Bloc<PrefsEvent, PrefsState> {
       sharedPreferences.setString("homeName", null);
       sharedPreferences.setString("workId", null);
       sharedPreferences.setString("workName", null);
-      dispatch(LoadPrefs());
+      add(LoadPrefs());
     }
   }
-
-  @override
-  Stream<PrefsState> transform(
-    Stream<PrefsEvent> events,
-    Stream<PrefsState> Function(PrefsEvent event) next,
-  ) {
-    return super.transform(
-      (events as Observable<PrefsEvent>).debounceTime(
-        Duration(milliseconds: 500),
-      ),
-      next,
-    );
   }
 
 //  getPreferredStations() async {
@@ -111,4 +99,3 @@ class PrefsBloc extends Bloc<PrefsEvent, PrefsState> {
 //    }
 //    sharedPreferences.commit();
 //  }
-}

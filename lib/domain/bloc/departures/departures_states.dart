@@ -3,12 +3,15 @@ import 'package:equatable/equatable.dart';
 import 'package:sncf_schedules/domain/model/departure_view_object.dart';
 
 abstract class DepartureState extends Equatable {
-  DepartureState([List props = const []]) : super(props);
+  DepartureState() : super();
 }
 
 class DeparturesInitial extends DepartureState {
   @override
   String toString() => 'DeparturesInitial';
+
+  @override
+  List<Object> get props => ["DeparturesInitial"];
 }
 
 class DeparturesLoaded extends DepartureState {
@@ -18,22 +21,31 @@ class DeparturesLoaded extends DepartureState {
   DeparturesLoaded({
     this.homeToWorkJourneys,
     this.workToHomeJourneys,
-  }) : super([homeToWorkJourneys]);
+  }) : super();
 
   @override
   String toString() => 'DeparturesLoaded';
+
+  @override
+  List<Object> get props => [homeToWorkJourneys, workToHomeJourneys];
 }
 
 class DeparturesLoading extends DepartureState {
   @override
   String toString() => 'DeparturesLoading';
+
+  @override
+  List<Object> get props => ['DeparturesLoading'];
 }
 
 class DeparturesFailure extends DepartureState {
   final String error;
 
-  DeparturesFailure({@required this.error}) : super([error]);
+  DeparturesFailure({@required this.error}) : super();
 
   @override
   String toString() => 'DeparturesFailure { error: $error }';
+
+  @override
+  List<Object> get props => [error];
 }

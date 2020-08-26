@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:intl/intl.dart';
-import 'package:meta/meta.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sncf_schedules/data/model/journey/journey_response.dart';
 import 'package:sncf_schedules/data/repo/departures/journeys_repository.dart';
 import 'package:sncf_schedules/domain/bloc/prefs/prefs_bloc.dart';
@@ -16,6 +16,7 @@ import 'journeys_states.dart';
 class JourneysBloc extends Bloc<JourneysEvent, JourneysState> {
   final PrefsBloc prefsBloc;
   final _repository = RoutesRepository();
+  SharedPreferences sharedPreferences;
 
   List<JourneyViewObject> oldHomeList;
   List<JourneyViewObject> oldWorkList;
@@ -25,8 +26,9 @@ class JourneysBloc extends Bloc<JourneysEvent, JourneysState> {
   StationViewObject _home;
   StationViewObject _work;
 
-  JourneysBloc({@required this.prefsBloc}) {
-    _prefsSubscription = prefsBloc.state.listen((state) {
+  JourneysBloc(this.prefsBloc, JourneysState initialState)
+      : super(initialState) {
+    _prefsSubscription = prefsBloc.listen((state) {
       if (state is PrefsSet) {
         _home = state.home;
         _work = state.work;
@@ -35,13 +37,23 @@ class JourneysBloc extends Bloc<JourneysEvent, JourneysState> {
   }
 
   @override
-  get initialState => JourneysInitial();
-
-  @override
   Stream<JourneysState> mapEventToState(JourneysEvent event) async* {
     if (event is LoadHomeJourneys) {
       String format = "yyyyMMdd'T'HHmmss";
       String date = DateFormat(format).format(DateTime.now());
+      sharedPreferences = await SharedPreferences.getInstance();
+      String homeId = sharedPreferences.getString("homeId");
+      String homeName = sharedPreferences.getString("homeName");
+
+      if (homeId != null && homeName != null) {
+        _home = StationViewObject.withStrings(homeName, homeId);
+      }
+      String workId = sharedPreferences.getString("workId");
+      String workName = sharedPreferences.getString("workName");
+
+      if (workId != null && workName != null) {
+        _work = StationViewObject.withStrings(workName, workId);
+      }
 
       if (oldHomeList == null) {
         yield JourneysLoading();
@@ -61,6 +73,18 @@ class JourneysBloc extends Bloc<JourneysEvent, JourneysState> {
       yield JourneysLoaded(
           homeToWorkJourneys: oldHomeList, workToHomeJourneys: oldWorkList);
     } else if (event is LoadWorkJourneys) {
+      String homeId = sharedPreferences.getString("homeId");
+      String homeName = sharedPreferences.getString("homeName");
+
+      if (homeId != null && homeName != null) {
+        _home = StationViewObject.withStrings(homeName, homeId);
+      }
+      String workId = sharedPreferences.getString("workId");
+      String workName = sharedPreferences.getString("workName");
+
+      if (workId != null && workName != null) {
+        _work = StationViewObject.withStrings(workName, workId);
+      }
       String format = "yyyyMMdd'T'HHmmss";
       String date = DateFormat(format).format(DateTime.now());
 
@@ -85,9 +109,9 @@ class JourneysBloc extends Bloc<JourneysEvent, JourneysState> {
   }
 
   @override
-  void dispose() {
-    _prefsSubscription.cancel();
-    super.dispose();
+  Future<void> close() {
+    _prefsSubscription?.cancel();
+    return super.close();
   }
 
   bool isToday(Journeys journey) {

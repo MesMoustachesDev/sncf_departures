@@ -25,9 +25,9 @@ class DeparturePageState extends State<DeparturePage> {
   void initState() {
     departuresBloc = BlocProvider.of<DeparturesBloc>(context);
     if (widget.stationType == StationType.home) {
-      departuresBloc.dispatch(LoadHomeDeparture());
+      departuresBloc.add(LoadHomeDeparture());
     } else {
-      departuresBloc.dispatch(LoadWorkDeparture());
+      departuresBloc.add(LoadWorkDeparture());
     }
     super.initState();
   }
@@ -35,7 +35,7 @@ class DeparturePageState extends State<DeparturePage> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder(
-        bloc: departuresBloc,
+        cubit: departuresBloc,
         builder: (BuildContext context, DepartureState state) {
           if (widget.stationType == StationType.home &&
               state is DeparturesLoaded &&

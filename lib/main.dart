@@ -12,10 +12,13 @@ import 'package:sncf_schedules/presentation/utils/arch_sample_keys.dart';
 import 'package:sncf_schedules/presentation/utils/blocs_delegate.dart';
 
 import 'domain/bloc/departures/departures_bloc.dart';
+import 'domain/bloc/departures/departures_states.dart';
 import 'domain/bloc/journeys/journeys_bloc.dart';
+import 'domain/bloc/journeys/journeys_states.dart';
+import 'domain/bloc/prefs/prefs_states.dart';
 
 void main() {
-  BlocSupervisor.delegate = SimpleBlocDelegate();
+//  BlocSupervisor.delegate = SimpleBlocDelegate();
   runApp(MyApp());
 }
 
@@ -23,15 +26,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final prefsBloc = PrefsBloc();
-    final departureBloc = DeparturesBloc(prefsBloc: prefsBloc);
-    final journeysBloc = JourneysBloc(prefsBloc: prefsBloc);
+    final prefsBloc = PrefsBloc(PrefsLoading());
 
-    return BlocProviderTree(
-      blocProviders: [
-        BlocProvider<PrefsBloc>(bloc: prefsBloc),
-        BlocProvider<DeparturesBloc>(bloc: departureBloc),
-        BlocProvider<JourneysBloc>(bloc: journeysBloc),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<PrefsBloc>(create: (BuildContext context) =>  prefsBloc),
+        BlocProvider<DeparturesBloc>(create: (BuildContext context) =>  DeparturesBloc(prefsBloc, DeparturesInitial())),
+        BlocProvider<JourneysBloc>(create: (BuildContext context) =>  JourneysBloc(prefsBloc, JourneysInitial())),
       ],
 //      bloc: prefsBloc,
       child: MaterialApp(
@@ -52,20 +53,20 @@ class MyApp extends StatelessWidget {
         routes: {
           Navigation.setPrefs: (context) {
             return SetPrefsScreen(
-              onInit: () => prefsBloc.dispatch(LoadPrefs()),
+              onInit: () => prefsBloc.add(LoadPrefs()),
               key: SncfSchedulesKeys.setPrefsScreen,
             );
           },
           Navigation.home: (context) {
             return HomeScreen(
-              onInit: () => prefsBloc.dispatch(LoadPrefs()),
+              onInit: () => prefsBloc.add(LoadPrefs()),
             );
           },
           Navigation.splash: (context) {
             return SplashScreen(
               onInit: () =>
                   Future.delayed(const Duration(milliseconds: 500), () {
-                    prefsBloc.dispatch(LoadPrefs());
+                    prefsBloc.add(LoadPrefs());
                   }),
               key: SncfSchedulesKeys.splashScreen,
             );

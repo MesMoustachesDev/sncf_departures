@@ -25,9 +25,9 @@ class JourneyssPageState extends State<JourneyssPage> {
   void initState() {
     _journeysBloc = BlocProvider.of<JourneysBloc>(context);
     if (widget.stationType == StationType.home) {
-      _journeysBloc.dispatch(LoadHomeJourneys());
+      _journeysBloc.add(LoadHomeJourneys());
     } else {
-      _journeysBloc.dispatch(LoadWorkJourneys());
+      _journeysBloc.add(LoadWorkJourneys());
     }
     super.initState();
   }
@@ -35,30 +35,24 @@ class JourneyssPageState extends State<JourneyssPage> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder(
-        bloc: _journeysBloc,
+        cubit: _journeysBloc,
         builder: (BuildContext context, JourneysState state) {
           if (widget.stationType == StationType.home &&
               state is JourneysLoaded &&
               state.homeToWorkJourneys != null) {
-            return ListView.separated(
-                separatorBuilder: (context, index) => Divider(
-                      color: Colors.black26,
-                    ),
+            return ListView.builder(
                 itemCount: state.homeToWorkJourneys.length,
                 itemBuilder: (context, index) => Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
                     child: JourneyListItem(
                         journey: state.homeToWorkJourneys[index])));
           } else if (widget.stationType == StationType.work &&
               state is JourneysLoaded &&
               state.workToHomeJourneys != null) {
-            return ListView.separated(
-                separatorBuilder: (context, index) => Divider(
-                      color: Colors.black26,
-                    ),
+            return ListView.builder(
                 itemCount: state.workToHomeJourneys.length,
                 itemBuilder: (context, index) => Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
                     child: JourneyListItem(
                         journey: state.workToHomeJourneys[index])));
           } else if (state is JourneysFailure) {

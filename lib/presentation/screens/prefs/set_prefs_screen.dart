@@ -50,7 +50,7 @@ class SetPrefsScreenState extends State<SetPrefsScreen> {
           Padding(
               padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
               child: BlocBuilder(
-                  bloc: prefsBloc,
+                  cubit: prefsBloc,
                   builder: (BuildContext context, PrefsState state) {
                     if (state is HomeSet) {
                       startController.text = state.home.id;
@@ -61,7 +61,7 @@ class SetPrefsScreenState extends State<SetPrefsScreen> {
                             hintText: 'Chercher une station'),
                         controller: startController,
                         onChanged: (text) {
-                          prefsBloc.dispatch(SearchHomePrefs(query: text));
+                          prefsBloc.add(SearchHomePrefs(query: text));
 //                      _refreshStart(text);
                         });
                   })),
@@ -70,7 +70,7 @@ class SetPrefsScreenState extends State<SetPrefsScreen> {
               width: 300,
 //          fit: FlexFit.tight,
               child: BlocBuilder(
-                  bloc: prefsBloc,
+                  cubit: prefsBloc,
                   builder: (BuildContext context, PrefsState state) {
                     {
                       if (state is QueryResultsSet &&
@@ -87,7 +87,7 @@ class SetPrefsScreenState extends State<SetPrefsScreen> {
                                         child: StationListItem(
                                             station:
                                                 state.homeQueryResult[index]),
-                                        onTap: () => prefsBloc.dispatch(
+                                        onTap: () => prefsBloc.add(
                                             SetHomePrefs(
                                                 homeId: state
                                                     .homeQueryResult[index].id,
@@ -111,7 +111,7 @@ class SetPrefsScreenState extends State<SetPrefsScreen> {
           Padding(
               padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
               child: BlocBuilder(
-                  bloc: prefsBloc,
+                  cubit: prefsBloc,
                   builder: (BuildContext context, PrefsState state) {
                     if (state is WorkSet) {
                       stopController.text = state.work.id;
@@ -121,7 +121,7 @@ class SetPrefsScreenState extends State<SetPrefsScreen> {
                             hintText: 'Chercher une station'),
                         controller: stopController,
                         onChanged: (text) {
-                          prefsBloc.dispatch(SearchWorkPrefs(query: text));
+                          prefsBloc.add(SearchWorkPrefs(query: text));
 //                      _refreshStart(text);
                         });
                   })),
@@ -130,7 +130,7 @@ class SetPrefsScreenState extends State<SetPrefsScreen> {
               width: 300,
 //          fit: FlexFit.tight,
               child: BlocBuilder(
-                  bloc: prefsBloc,
+                  cubit: prefsBloc,
                   builder: (BuildContext context, PrefsState state) {
                     if (state is QueryResultsSet &&
                         state.workQueryResult != null) {
@@ -146,7 +146,7 @@ class SetPrefsScreenState extends State<SetPrefsScreen> {
                                       child: StationListItem(
                                           station:
                                               state.workQueryResult[index]),
-                                      onTap: () => prefsBloc.dispatch(
+                                      onTap: () => prefsBloc.add(
                                           SetWorkPrefs(
                                               workId: state
                                                   .workQueryResult[index].id,

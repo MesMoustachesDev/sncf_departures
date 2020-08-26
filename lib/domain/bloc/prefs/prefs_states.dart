@@ -2,12 +2,15 @@ import 'package:equatable/equatable.dart';
 import 'package:sncf_schedules/domain/model/station_view_object.dart';
 
 abstract class PrefsState extends Equatable {
-  PrefsState([List props = const []]) : super(props);
+  PrefsState() : super();
 }
 
 class PrefsUninitialized extends PrefsState {
   @override
   String toString() => 'PrefsUninitialized';
+
+  @override
+  List<Object> get props => ['PrefsUninitialized'];
 }
 
 class PrefsError extends PrefsState {
@@ -15,17 +18,21 @@ class PrefsError extends PrefsState {
 
   PrefsError({
     this.error,
-  }) : super([
-          error,
-        ]);
+  }) : super();
 
   @override
   String toString() => 'PostError';
+
+  @override
+  List<Object> get props => [error];
 }
 
 class PrefsLoading extends PrefsState {
   @override
   String toString() => 'PrefsLoading';
+
+  @override
+  List<Object> get props => ['PrefsLoading'];
 }
 
 class PrefsSet extends PrefsState {
@@ -35,7 +42,7 @@ class PrefsSet extends PrefsState {
   PrefsSet({
     this.home,
     this.work,
-  }) : super([home, work]);
+  }) : super();
 
   PrefsSet copyWith({
     String home,
@@ -49,6 +56,9 @@ class PrefsSet extends PrefsState {
 
   @override
   String toString() => 'PrefsSet';
+
+  @override
+  List<Object> get props => [home, work];
 }
 
 class HomeSet extends PrefsState {
@@ -56,7 +66,7 @@ class HomeSet extends PrefsState {
 
   HomeSet({
     this.home,
-  }) : super([home]);
+  }) : super();
 
   PrefsSet copyWith({
     String home,
@@ -68,6 +78,9 @@ class HomeSet extends PrefsState {
 
   @override
   String toString() => 'HomeSet { home: $home }';
+
+  @override
+  List<Object> get props => [home];
 }
 
 class WorkSet extends PrefsState {
@@ -75,7 +88,7 @@ class WorkSet extends PrefsState {
 
   WorkSet({
     this.work,
-  }) : super([work]);
+  }) : super();
 
   PrefsSet copyWith({
     String work,
@@ -87,6 +100,10 @@ class WorkSet extends PrefsState {
 
   @override
   String toString() => 'WorkSet { work: $work }';
+
+  @override
+  List<Object> get props => [work];
+
 }
 
 class QueryResultsSet extends PrefsState {
@@ -96,7 +113,7 @@ class QueryResultsSet extends PrefsState {
   QueryResultsSet({
     this.homeQueryResult,
     this.workQueryResult,
-  }) : super([homeQueryResult, workQueryResult]);
+  }) : super();
 
   QueryResultsSet copyWith({
     String home,
@@ -110,6 +127,9 @@ class QueryResultsSet extends PrefsState {
 
   @override
   String toString() => 'QueryResultsSet';
+
+  @override
+  List<Object> get props => [homeQueryResult, workQueryResult];
 }
 
 enum StationType { home, work }
